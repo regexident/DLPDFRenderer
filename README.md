@@ -25,7 +25,7 @@ Just add it to your Podfile: `pod 'DLPDFRenderer'`
 
 ## Usage
 
-See [`DLPDFRenderer.h`](DLPDFRenderer/Classes/DLPDFRenderer.h) for the complete API and [`DLPRViewController.m`](DLPDFRenderer/DLPRViewController.m) for a simple use case.
+See [`DLPRRenderer.h`](DLPDFRenderer/Classes/DLPRRenderer.h) for the complete API and [`DLPRViewController.m`](DLPDFRenderer/DLPRViewController.m) for a simple use case.
 
 ### Example usage
 
