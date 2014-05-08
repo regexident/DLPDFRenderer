@@ -45,7 +45,7 @@
 - (void)finishedLoadingPage {
 	NSUInteger pageIndex = self.currentPageIndex;
 	[self addLoadedPage];
-	if ([self.delegate respondsToSelector:@selector(renderer:failedPageAtIndex:)]) {
+	if ([self.delegate respondsToSelector:@selector(renderer:finishedPageAtIndex:)]) {
 		[self.delegate renderer:self finishedPageAtIndex:pageIndex];
 	}
 	if ([self.dataSource renderer:self hasReachedLastPageAtIndex:pageIndex]) {
