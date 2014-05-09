@@ -26,13 +26,18 @@
 @implementation DLPRRenderer
 
 - (id)initWithDataSource:(id<DLPRRendererDataSource>)dataSource delegate:(id<DLPRRendererDelegate>)delegate {
+	return [self initWithWebView:nil dataSource:dataSource delegate:delegate];
+}
+
+- (id)initWithWebView:(UIWebView *)webview dataSource:(id<DLPRRendererDataSource>)dataSource delegate:(id<DLPRRendererDelegate>)delegate {
 	NSAssert(dataSource, @"Method argument 'dataSource' must not be nil.");
 	NSAssert(delegate, @"Method argument 'delegate' must not be nil.");
 	self = [super init];
 	if (self) {
 		self.dataSource = dataSource;
 		self.delegate = delegate;
-		self.webview = [[UIWebView alloc] init];
+		self.webview = (webview) ?: [[UIWebView alloc] initWithFrame:[UIScreen mainScreen].bounds];
+		self.webview.delegate = self;
 	}
 	return self;
 }

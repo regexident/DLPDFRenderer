@@ -40,6 +40,7 @@
 @property (readwrite, strong, nonatomic) NSURL *defaultBaseURL;
 
 - (id)initWithDataSource:(id<DLPRRendererDataSource>)dataSource delegate:(id<DLPRRendererDelegate>)delegate;
+- (id)initWithWebView:(UIWebView *)webview dataSource:(id<DLPRRendererDataSource>)dataSource delegate:(id<DLPRRendererDelegate>)delegate;
 
 - (void)renderToDataWithDocumentInfo:(DLPRDocumentInfo *)documentInfo;
 - (void)renderToFile:(NSString *)file withDocumentInfo:(DLPRDocumentInfo *)documentInfo;
