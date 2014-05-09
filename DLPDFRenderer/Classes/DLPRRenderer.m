@@ -85,18 +85,38 @@
 	CGSize paperSize = page.paperSize;
 	DLPRPageMargins margins = page.margins;
 	
+	BOOL additiveWidthMargins = NO;
+	BOOL additiveHeightMargins = NO;
+	
 	if (!paperSize.width) {
-		paperSize.width = margins.left + margins.right;
-		paperSize.width += [[self.webview stringByEvaluatingJavaScriptFromString:@"document.width"] doubleValue];
+		paperSize.width = [[self.webview stringByEvaluatingJavaScriptFromString:@"document.body.scrollWidth"] doubleValue];
+		additiveWidthMargins = YES;
 	}
 	
 	if (!paperSize.height) {
-		paperSize.height = margins.top + margins.bottom;
-		paperSize.height += [[self.webview stringByEvaluatingJavaScriptFromString:@"document.height"] doubleValue];
+		paperSize.height = [[self.webview stringByEvaluatingJavaScriptFromString:@"document.documentElement.scrollHeight"] doubleValue];
+		additiveHeightMargins = YES;
+	}
+	
+	CGSize printableSize = paperSize;
+	
+	CGFloat widthMargins = margins.left + margins.right;
+	CGFloat heightMargins = margins.top + margins.bottom;
+	
+	if (additiveWidthMargins) {
+		paperSize.width += widthMargins;
+	} else {
+		printableSize.width -= widthMargins;
+	}
+	
+	if (additiveHeightMargins) {
+		paperSize.height += heightMargins;
+	} else {
+		printableSize.height -= heightMargins;
 	}
 	
 	CGRect paperRect = CGRectMake(0.0, 0.0, paperSize.width, paperSize.height);
-	CGRect printableRect = CGRectMake(margins.left, margins.top, paperSize.width - margins.left - margins.right, paperSize.height - margins.top - margins.bottom);
+	CGRect printableRect = CGRectMake(margins.left, margins.top, printableSize.width, printableSize.height);
 
 	UIPrintFormatter *printFormatter = self.webview.viewPrintFormatter;
 	UIPrintPageRenderer *renderer = [[UIPrintPageRenderer alloc] init];
