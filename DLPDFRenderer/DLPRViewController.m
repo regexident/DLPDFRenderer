@@ -60,7 +60,7 @@
 #pragma mark - DLPRRendererDataSource Protocol
 
 - (BOOL)renderer:(DLPRRenderer *)renderer hasReachedLastPageAtIndex:(NSUInteger)pageIndex {
-	return (pageIndex + 1 == self.pageCount);
+	return !(pageIndex < self.pageCount);
 }
 
 - (id<DLPRPage>)renderer:(DLPRRenderer *)renderer pageAtIndex:(NSUInteger)pageIndex {

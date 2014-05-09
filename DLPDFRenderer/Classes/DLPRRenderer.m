@@ -98,16 +98,19 @@
 	CGRect paperRect = CGRectMake(0.0, 0.0, paperSize.width, paperSize.height);
 	CGRect printableRect = CGRectMake(margins.left, margins.top, paperSize.width - margins.left - margins.right, paperSize.height - margins.top - margins.bottom);
 
-	UIGraphicsBeginPDFPageWithInfo(paperRect, [page boxInfoAsDictionary]);
-	CGRect bounds = UIGraphicsGetPDFContextBounds();
+	UIPrintFormatter *printFormatter = self.webview.viewPrintFormatter;
 	UIPrintPageRenderer *renderer = [[UIPrintPageRenderer alloc] init];
-	
+	[renderer addPrintFormatter:printFormatter startingAtPageAtIndex:0];
 	[renderer setValue:[NSValue valueWithCGRect:paperRect] forKey:@"paperRect"];
 	[renderer setValue:[NSValue valueWithCGRect:printableRect] forKey:@"printableRect"];
+	NSUInteger subPageCount = (page.cropsOverflow) ? 1 : printFormatter.pageCount;
+	[renderer prepareForDrawingPages:NSMakeRange(0, subPageCount)];
+	CGRect bounds = UIGraphicsGetPDFContextBounds();
+	for (NSUInteger i = 0; i < subPageCount; i++) {
+		UIGraphicsBeginPDFPageWithInfo(paperRect, [page boxInfoAsDictionary]);
+		[renderer drawPageAtIndex:i inRect:bounds];
+	}
 	
-	[renderer prepareForDrawingPages:NSMakeRange(0, 1)];
-	[renderer addPrintFormatter:self.webview.viewPrintFormatter startingAtPageAtIndex:0];
-	[renderer drawPageAtIndex:0 inRect:bounds];
 	self.currentPageIndex++;
 	self.currentPage = nil;
 }

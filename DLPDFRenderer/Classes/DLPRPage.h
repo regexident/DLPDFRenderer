@@ -37,6 +37,8 @@ extern const DLPRPageMargins DLPRPageMarginsZero;
 @property (readwrite, assign, nonatomic) CGRect trimBoxRect;
 @property (readwrite, assign, nonatomic) CGRect artBoxRect;
 
+@property (readwrite, assign, nonatomic) BOOL cropsOverflow;
+
 - (void)loadInWebView:(UIWebView *)webview;
 
 - (NSDictionary *)boxInfoAsDictionary;
@@ -53,6 +55,8 @@ extern const DLPRPageMargins DLPRPageMarginsZero;
 @property (readwrite, assign, nonatomic) CGRect bleedBoxRect;
 @property (readwrite, assign, nonatomic) CGRect trimBoxRect;
 @property (readwrite, assign, nonatomic) CGRect artBoxRect;
+
+@property (readwrite, assign, nonatomic) BOOL cropsOverflow;
 
 - (id)initWithPaperSize:(CGSize)paperSize;
 
