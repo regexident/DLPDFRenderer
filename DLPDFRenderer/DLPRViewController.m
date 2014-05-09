@@ -120,18 +120,17 @@
 }
 
 - (void)renderer:(DLPRRenderer *)renderer failedWithError:(NSError *)error {
-	NSLog(@"%s", __FUNCTION__);
-	NSLog(@"Error: %@", error);
+	NSLog(@"%s -> Error: %@", __FUNCTION__, error);
 	[self.progressView removeFromSuperview];
 }
 
 - (void)renderer:(DLPRRenderer *)renderer finishedPageAtIndex:(NSUInteger)index {
-	NSLog(@"%s", __FUNCTION__);
+	NSLog(@"%s -> %lu", __FUNCTION__, (unsigned long)index);
 	self.progressView.progress = (CGFloat)(index + 1) / self.pageCount;
 }
 
 - (void)renderer:(DLPRRenderer *)renderer failedPageAtIndex:(NSUInteger)index {
-	NSLog(@"%s", __FUNCTION__);
+	NSLog(@"%s -> %lu", __FUNCTION__, (unsigned long)index);
 }
 
 @end
