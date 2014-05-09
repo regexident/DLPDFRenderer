@@ -79,8 +79,6 @@
 	NSUInteger pageIndex = self.currentPageIndex;
 	id<DLPRPage> page = [self.dataSource renderer:self pageAtIndex:pageIndex];
 	self.currentPage = page;
-	self.webview.delegate = self;
-	
 	[page loadInWebView:self.webview];
 }
 
@@ -169,8 +167,10 @@
 #pragma mark - UIWebViewDelegate Protocol
 
 - (void)webViewDidFinishLoad:(UIWebView *)webview {
-	self.webview.delegate = nil;
-	[self finishedLoadingPage];
+	NSString *state = [webview stringByEvaluatingJavaScriptFromString:@"document.readyState"];
+	if ([state isEqualToString:@"complete"]) {
+		[self finishedLoadingPage];
+	}
 }
 
 - (void)webView:(UIWebView *)webview didFailLoadWithError:(NSError *)error {
