@@ -132,9 +132,8 @@
 	for (NSUInteger i = 0; i < subPageCount; i++) {
 		UIGraphicsBeginPDFPageWithInfo(paperRect, [page boxInfoAsDictionary]);
 		[renderer drawPageAtIndex:i inRect:bounds];
+		self.currentPageIndex++;
 	}
-	
-	self.currentPageIndex++;
 	self.currentPage = nil;
 }
 
