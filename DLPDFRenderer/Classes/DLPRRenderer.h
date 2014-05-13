@@ -32,12 +32,15 @@
 
 @end
 
+typedef void(^DLPRRendererPageCallbackBlock)(CGContextRef context, id<DLPRPage> page, CGRect pageBounds, CGRect paperRect, NSDictionary *boxInfo, NSUInteger currentPageIndex);
+
 @interface DLPRRenderer : NSObject
 
 @property (readonly, weak, nonatomic) id<DLPRRendererDataSource> dataSource;
 @property (readonly, weak, nonatomic) id<DLPRRendererDelegate> delegate;
 
 @property (readwrite, strong, nonatomic) NSURL *defaultBaseURL;
+@property (readwrite, copy, nonatomic) DLPRRendererPageCallbackBlock pageCallbackBlock;
 
 - (id)initWithDataSource:(id<DLPRRendererDataSource>)dataSource delegate:(id<DLPRRendererDelegate>)delegate;
 - (id)initWithWebView:(UIWebView *)webview dataSource:(id<DLPRRendererDataSource>)dataSource delegate:(id<DLPRRendererDelegate>)delegate;

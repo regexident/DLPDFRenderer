@@ -83,6 +83,7 @@
 }
 
 - (void)addLoadedPage {
+	DLPRRendererPageCallbackBlock pageCallbackBlock = self.pageCallbackBlock;
 	id<DLPRPage> page = self.currentPage;
 	
 	CGSize paperSize = page.paperSize;
@@ -130,8 +131,14 @@
 	[renderer prepareForDrawingPages:NSMakeRange(0, subPageCount)];
 	CGRect bounds = UIGraphicsGetPDFContextBounds();
 	for (NSUInteger i = 0; i < subPageCount; i++) {
-		UIGraphicsBeginPDFPageWithInfo(paperRect, [page boxInfoAsDictionary]);
+		NSUInteger pageIndex = self.currentPageIndex;
+		NSDictionary *boxInfo = [page boxInfoAsDictionary];
+		UIGraphicsBeginPDFPageWithInfo(paperRect, boxInfo);
 		[renderer drawPageAtIndex:i inRect:bounds];
+		if (pageCallbackBlock) {
+			CGContextRef context = UIGraphicsGetCurrentContext();
+			pageCallbackBlock(context, page, paperRect, paperRect, boxInfo, pageIndex);
+		}
 		self.currentPageIndex++;
 	}
 	self.currentPage = nil;

@@ -77,6 +77,17 @@ See [`DLPRRenderer.h`](DLPDFRenderer/Classes/DLPRRenderer.h) for the complete AP
 
 ```
 
+### Custom Drawing
+
+For those situations where you might want to draw a header/footer above/below or a watermark on top of the page content **DLPDFRenderer** provides you with an optional page-wise callback block:
+
+The following sample snippet draws a red rect on top of the rendered page:
+
+	renderer.pageCallbackBlock = ^(CGContextRef context, id<DLPRPage> page, CGRect pageBounds, CGRect paperRect, NSDictionary *boxInfo, NSUInteger currentPageIndex) {
+		CGContextSetFillColorWithColor(context, [[UIColor redColor] colorWithAlphaComponent:0.5].CGColor);
+		CGContextFillRect(context, CGRectInset(pageBounds, 100.0, 100.0));
+	};
+
 ### Advanced usage
 
 For those situations where you'd rather want to inject assets (such as images) into your PDFs directly (without writing them to disk first, or if you want to include both local and remote assets), one can include them via a custom URL scheme: `<img src="test://asset_id" />` and have them handled by a custom NSURLProtocol subclass:
