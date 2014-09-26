@@ -96,10 +96,10 @@ const DLPRPageMargins DLPRPageMarginsZero = (DLPRPageMargins){0.0, 0.0, 0.0, 0.0
 + (CGSize)paperSizeForISO216:(NSUInteger)number withBaseAreaInSquareMeters:(CGFloat)baseAreaInSquareMeters forOrientation:(DLPRPageOrientation)orientation {
 	CGFloat squareRootOfTwo = sqrt(2.0);
 	CGFloat heightOfBaseInCentimeters = 100.0 * baseAreaInSquareMeters * sqrt(squareRootOfTwo);
-	CGFloat heightInCentimeters = heightOfBaseInCentimeters;
-	if (number) {
-		heightInCentimeters /= (squareRootOfTwo * number);
-	}
+
+  CGFloat heightInCentimeters = heightOfBaseInCentimeters;
+	heightInCentimeters /= powf(squareRootOfTwo, number);
+
 	CGFloat widthInCentimeters = heightInCentimeters / squareRootOfTwo;
 	CGSize paperSizeInCentimeters = CGSizeMake(widthInCentimeters, heightInCentimeters);
 	CGSize paperSizeInInches = [self scalePaperSizeFromCentimetersToInches:paperSizeInCentimeters];
