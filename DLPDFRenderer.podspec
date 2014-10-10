@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
 
   s.name         = "DLPDFRenderer"
-  s.version      = "1.1.1"
+  s.version      = "1.1.2"
   s.summary      = "Lightweight solution for generating multi-page PDFs from arbitrary HTML input."
 
   s.description  = <<-DESC
@@ -26,7 +26,7 @@ Pod::Spec.new do |s|
   s.license      = { :type => 'BSD-3', :file => 'LICENSE' }
   s.author       = { "Vincent Esche" => "regexident@gmail.com" }
   s.platform     = :ios, '6.0'
-  s.source       = { :git => "https://github.com/regexident/DLPDFRenderer.git", :tag => '1.1.1' }
+  s.source       = { :git => "https://github.com/regexident/DLPDFRenderer.git", :tag => '1.1.2' }
   s.source_files  = 'DLPDFRenderer/Classes/*.{h,m}'
   s.requires_arc = true
 
