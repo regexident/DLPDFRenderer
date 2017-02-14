@@ -1,4 +1,4 @@
-# DLPDFRenderer
+# DLPDFRenderer [![No Maintenance Intended](http://unmaintained.tech/badge.svg)](http://unmaintained.tech/)
 
 **DLPDFRenderer** is a **lightweight solution** for generating **multi-page PDFs** from arbitrary **HTML input**.
 
